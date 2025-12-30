@@ -1,0 +1,1241 @@
+{
+  "success": true,
+  "result_id": "05767d5f-0dda-4198-bc85-2309a01de1e9",
+  "text": " Yesterday you mention um whether we can explore having the uplive tito do is it? I have we have a effort assessment meeting uh yesterday, and we we found upliupliliumaybe uh can release at the johe h next joune. Uh, but uh, and now the CN uh BDF plugging is maybe have some problem to match the requirement, maybe we uh cannot spend too much time as here. Um okay. So we don't really know uh if we can launch it in juune for the up lifting. Uh, okay. So so II should set up a courleand and seeking first, but not what is the aggcy for this PDF dopular. I think now that using where you we are still working, but the first of PDF, this is what they have been on gone. So uh, sorry, yeah. So only forfound to do this in june, but me need to understand the requirements first before we can approach up me, quit. They do ing. Uh. So i set up go with with senence. I think ok ok thank you电m没啥，还有三个三个个个个个个个个个个个个个个个个个个个个个个个个个个三的证据。 Okay. For my side yesterday, we i work with joy food, the ICE one events ICEE uh e statement to the the the new report pipeline thinks. Yeah, we are build new pipeline for our DDC. Yeah. So wrw anything what highlights for treasuum? Yeah, okay, for UAEE one thray. Can you all remind me again? Are we changing the solution嗯until now now we still can go with old solufor AEE vance because because we don't have uh, uh, we don't have much time to change the solution. Okay, ok, good. So so h, okay, yeah, but so be is is even the approval right is be your approval. Do it? Yeah, okay, it's a rather approval, and you know we are to呃reach in day. Uh every day. Iiw is a proformance solution, then okay, but um basically my point here right is we are targeting for january release. Right? And then i think our TP has already fixed all the founder, but at these. So the solution is like not were just a hard blocker. Uh, the the non bbck go ing that lock up this longer ing that lock at it this three month. So then, no, how loker we fixed yeah ah means, which means ans vulnerbability should not lock us for the minutes. So now is just getting the solution in that approval. And what are actituity this readning, you lite up a relisteon and genuineine. So you should you get tting, do we see it? Recorls can not we run it. If you run it before in december, yeah, we can write in december pipeline in december. No, no, sorry. So what what i'm saing is that we have done to fix us for the non hablogright. So this is this is fixing after we have randicical scaling.呃，i think you, you know, the AEFY is a very old worch effort. The the moliability. So even even even even we reruthe pipeline, no, any new voliability will be uh again, h shnoknow. Yeah, okay, okay. So there's no to do another rubecause. Uh no one starcha EF yeah fixes that have done is good II want. We will have any surprises in january, right? Um yeah, i know ok ay, yeah good ah. So that's one guys is yeah, that's one for me. Okay, if no more others. We can close this back. Yeah, thank you,拜拜，thank you,拜拜嗯。",
+  "sentences": [
+    {
+      "text": " yesterday you mention um whether we can explore having the uplive tito do is it？",
+      "start": 0.73,
+      "end": 7.09,
+      "speaker": 0,
+      "translation": {
+        "zh": "昨天你提到 嗯... 我们能否探索一下 是否可以试探一下 是否?",
+        "en": " yesterday you mention um whether we can explore having the uplive tito do is it？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " i have we have a effort assessment meeting uh yesterday，",
+      "start": 12.81,
+      "end": 17.49,
+      "speaker": 2,
+      "translation": {
+        "zh": "昨天我们有个工作评估会议",
+        "en": " i have we have a effort assessment meeting uh yesterday，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " and we we found upliupliliumaybe uh can release at the johe h next joune。",
+      "start": 17.73,
+      "end": 27.49,
+      "speaker": 2,
+      "translation": {
+        "zh": "我们发现上流菌菌 可以在下个Joune释放出来",
+        "en": " and we we found upliupliliumaybe uh can release at the johe h next joune。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh，",
+      "start": 27.49,
+      "end": 28.15,
+      "speaker": 2,
+      "translation": {
+        "zh": "嗯,",
+        "en": " uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but uh，",
+      "start": 29.56,
+      "end": 30.58,
+      "speaker": 2,
+      "translation": {
+        "zh": "但是,呃,",
+        "en": " but uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " and now the CN uh BDF plugging is maybe have some problem to match the requirement，",
+      "start": 30.58,
+      "end": 38.62,
+      "speaker": 2,
+      "translation": {
+        "zh": "而现在CN uh BDF的插件 可能有些问题 符合要求,",
+        "en": " and now the CN uh BDF plugging is maybe have some problem to match the requirement，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " maybe we uh cannot spend too much time as here。",
+      "start": 38.62,
+      "end": 43.12,
+      "speaker": 2,
+      "translation": {
+        "zh": "也许我们不能再在这里花太多时间",
+        "en": " maybe we uh cannot spend too much time as here。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " um okay。",
+      "start": 45.07,
+      "end": 45.85,
+      "speaker": 0,
+      "translation": {
+        "zh": "嗯,还好。",
+        "en": " um okay。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so we don't really know uh if we can launch it in juune for the up lifting。",
+      "start": 46.21,
+      "end": 52.59,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以我们真的不知道 呃,如果我们能启动它 在juune为升降。",
+        "en": " so we don't really know uh if we can launch it in juune for the up lifting。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh，",
+      "start": 52.59,
+      "end": 53.73,
+      "speaker": 0,
+      "translation": {
+        "zh": "嗯,",
+        "en": " uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay。",
+      "start": 54.07,
+      "end": 54.97,
+      "speaker": 0,
+      "translation": {
+        "zh": "OK,没事的。",
+        "en": " okay。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so so II should set up a courleand and seeking first，",
+      "start": 55.59,
+      "end": 58.33,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以,你应当先设一个椰枣圈,然后,你应当首先寻求它,",
+        "en": " so so II should set up a courleand and seeking first，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but not what is the aggcy for this PDF dopular。",
+      "start": 58.43,
+      "end": 60.89,
+      "speaker": 0,
+      "translation": {
+        "zh": "但对于这个 PDF dopulal 来说,",
+        "en": " but not what is the aggcy for this PDF dopular。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " i think now that using where you we are still working，",
+      "start": 60.89,
+      "end": 63.05,
+      "speaker": 0,
+      "translation": {
+        "zh": "我想现在利用你 我们仍在工作的地方",
+        "en": " i think now that using where you we are still working，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but the first of PDF，",
+      "start": 63.15,
+      "end": 64.27,
+      "speaker": 0,
+      "translation": {
+        "zh": "但第一个PDF,",
+        "en": " but the first of PDF，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " this is what they have been on gone。",
+      "start": 64.27,
+      "end": 66.36,
+      "speaker": 0,
+      "translation": {
+        "zh": "这是他们生前所享受的。",
+        "en": " this is what they have been on gone。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so uh，",
+      "start": 66.91,
+      "end": 68.37,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以,呃,",
+        "en": " so uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " sorry，",
+      "start": 68.37,
+      "end": 68.67,
+      "speaker": 0,
+      "translation": {
+        "zh": "对不起",
+        "en": " sorry，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah。",
+      "start": 68.67,
+      "end": 69.01,
+      "speaker": 0,
+      "translation": {
+        "zh": "耶,对了",
+        "en": " yeah。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so only forfound to do this in june，",
+      "start": 69.01,
+      "end": 70.61,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以在June的时候就忘记了",
+        "en": " so only forfound to do this in june，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but me need to understand the requirements first before we can approach up me，",
+      "start": 70.89,
+      "end": 75.15,
+      "speaker": 0,
+      "translation": {
+        "zh": "但我需要先明白要求 才能接近我",
+        "en": " but me need to understand the requirements first before we can approach up me，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " quit。",
+      "start": 75.15,
+      "end": 75.41,
+      "speaker": 0,
+      "translation": {
+        "zh": "退出!",
+        "en": " quit。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " they do ing。",
+      "start": 75.41,
+      "end": 75.93,
+      "speaker": 0,
+      "translation": {
+        "zh": "他们做唱唱,",
+        "en": " they do ing。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh。",
+      "start": 76.43,
+      "end": 76.81,
+      "speaker": 0,
+      "translation": {
+        "zh": "额...",
+        "en": " uh。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so i set up go with with senence。",
+      "start": 76.81,
+      "end": 78.21,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以,我设置 与神经质去。",
+        "en": " so i set up go with with senence。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " i think ok ok thank you 电 m 没啥，",
+      "start": 78.21,
+      "end": 101,
+      "speaker": 0,
+      "translation": {
+        "zh": "我想可以了 谢谢你们了",
+        "en": " i think ok ok thank you 电 m 没啥，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": "还有三个三个个个个个个个个个个个个个个个个个个个个个个个个个个三的证据。",
+      "start": 101,
+      "end": 124.98,
+      "speaker": 3,
+      "translation": {
+        "zh": "还有三个三个个个个个个个个个个个个个个个个个个个个个个个个个个三的证据。",
+        "en": "There is also evidence of three each, one by one, one by one, one by one, and three by one.",
+        "source_lang": "zh"
+      }
+    },
+    {
+      "text": " okay。",
+      "start": 125.36,
+      "end": 125.84,
+      "speaker": 1,
+      "translation": {
+        "zh": "OK,没事的。",
+        "en": " okay。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " for my side yesterday，",
+      "start": 125.84,
+      "end": 127.36,
+      "speaker": 1,
+      "translation": {
+        "zh": "昨天为了我这边",
+        "en": " for my side yesterday，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we i work with joy food，",
+      "start": 127.42,
+      "end": 129.12,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们工作与欢乐食物,",
+        "en": " we i work with joy food，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " the ICE one events ICEE uh e statement to the the the new report pipeline thinks。",
+      "start": 129.14,
+      "end": 139.98,
+      "speaker": 1,
+      "translation": {
+        "zh": "ICE事件之一 ICE uh e 声明 在新的报告管道 思考。",
+        "en": " the ICE one events ICEE uh e statement to the the the new report pipeline thinks。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 140.28,
+      "end": 140.72,
+      "speaker": 1,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we are build new pipeline for our DDC。",
+      "start": 140.72,
+      "end": 143.52,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们正在为我们的DDC建造新的管道。",
+        "en": " we are build new pipeline for our DDC。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah。",
+      "start": 143.52,
+      "end": 145.64,
+      "speaker": 1,
+      "translation": {
+        "zh": "耶,对了",
+        "en": " yeah。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so wrw anything what highlights for treasuum？",
+      "start": 145.98,
+      "end": 152.94,
+      "speaker": 1,
+      "translation": {
+        "zh": "那么,你有什么要说的吗? 催眠症的症结是什么?",
+        "en": " so wrw anything what highlights for treasuum？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 152.94,
+      "end": 153.36,
+      "speaker": 0,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 153.36,
+      "end": 154.4,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " for UAEE one thray。",
+      "start": 154.5,
+      "end": 156.1,
+      "speaker": 0,
+      "translation": {
+        "zh": "UAEE一列车。",
+        "en": " for UAEE one thray。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " can you all remind me again？",
+      "start": 157.72,
+      "end": 159.34,
+      "speaker": 0,
+      "translation": {
+        "zh": "你们能再提醒我一次吗?",
+        "en": " can you all remind me again？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " are we changing the solution 嗯 until now now we still can go with old solufor AEE vance because because we don't have uh，",
+      "start": 159.82,
+      "end": 175.58,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们改变解决方案 直到现在 我们仍可以和旧的AEEVENS一起去 因为我们没有 呃",
+        "en": " are we changing the solution 嗯 until now now we still can go with old solufor AEE vance because because we don't have uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh，",
+      "start": 175.58,
+      "end": 176,
+      "speaker": 1,
+      "translation": {
+        "zh": "嗯,",
+        "en": " uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we don't have much time to change the solution。",
+      "start": 176.02,
+      "end": 178.93,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们没有太多的时间改变解决办法。",
+        "en": " we don't have much time to change the solution。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 179.66,
+      "end": 180.24,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " ok，",
+      "start": 180.24,
+      "end": 180.64,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " ok，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " good。",
+      "start": 180.64,
+      "end": 180.88,
+      "speaker": 0,
+      "translation": {
+        "zh": "不错!",
+        "en": " good。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so so h，",
+      "start": 181.18,
+      "end": 182.12,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以,h,",
+        "en": " so so h，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 182.12,
+      "end": 182.66,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 182.92,
+      "end": 183.68,
+      "speaker": 0,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but so be is is even the approval right is be your approval。",
+      "start": 183.8,
+      "end": 187.88,
+      "speaker": 0,
+      "translation": {
+        "zh": "但批准权是你的批准。",
+        "en": " but so be is is even the approval right is be your approval。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " do it？",
+      "start": 188.06,
+      "end": 188.7,
+      "speaker": 0,
+      "translation": {
+        "zh": "做吗?",
+        "en": " do it？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 189.08,
+      "end": 189.32,
+      "speaker": 0,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 189.32,
+      "end": 190.1,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " it's a rather approval，",
+      "start": 191.16,
+      "end": 193.28,
+      "speaker": 1,
+      "translation": {
+        "zh": "这是一个相当的认可,",
+        "en": " it's a rather approval，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " and you know we are to 呃 reach in day。",
+      "start": 193.28,
+      "end": 197.12,
+      "speaker": 1,
+      "translation": {
+        "zh": "你们知道我们白昼要达到什么程度。",
+        "en": " and you know we are to 呃 reach in day。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh every day。",
+      "start": 197.32,
+      "end": 198.79,
+      "speaker": 1,
+      "translation": {
+        "zh": "每天,呃... ... 每天...",
+        "en": " uh every day。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " IIW is a proformance solution，",
+      "start": 200.41,
+      "end": 202.07,
+      "speaker": 0,
+      "translation": {
+        "zh": "IIW是一个进步的解决方案,",
+        "en": " IIW is a proformance solution，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " then okay，",
+      "start": 202.11,
+      "end": 203.19,
+      "speaker": 0,
+      "translation": {
+        "zh": "然后还好,",
+        "en": " then okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but um basically my point here right is we are targeting for january release。",
+      "start": 203.31,
+      "end": 207.99,
+      "speaker": 0,
+      "translation": {
+        "zh": "但基本上我的观点是 我们的目标是麻黄素释放",
+        "en": " but um basically my point here right is we are targeting for january release。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " right？",
+      "start": 207.99,
+      "end": 208.23,
+      "speaker": 0,
+      "translation": {
+        "zh": "对吧?",
+        "en": " right？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " and then i think our TP has already fixed all the founder，",
+      "start": 208.25,
+      "end": 211.61,
+      "speaker": 0,
+      "translation": {
+        "zh": "然后我想我们的TP已经修好了所有创始人",
+        "en": " and then i think our TP has already fixed all the founder，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " but at these。",
+      "start": 211.61,
+      "end": 212.15,
+      "speaker": 0,
+      "translation": {
+        "zh": "然而此,",
+        "en": " but at these。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so the solution is like not were just a hard blocker。",
+      "start": 212.75,
+      "end": 217.47,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以解决方案就像不只是一个困难的阻拦者。",
+        "en": " so the solution is like not were just a hard blocker。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh，",
+      "start": 218.13,
+      "end": 218.61,
+      "speaker": 0,
+      "translation": {
+        "zh": "嗯,",
+        "en": " uh，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " the the non bbck go ing that lock up this longer ing that lock at it this three month。",
+      "start": 218.75,
+      "end": 224.08,
+      "speaker": 0,
+      "translation": {
+        "zh": "这3个月里锁得更久 锁得更紧",
+        "en": " the the non bbck go ing that lock up this longer ing that lock at it this three month。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so then，",
+      "start": 224.08,
+      "end": 224.38,
+      "speaker": 0,
+      "translation": {
+        "zh": "因此,",
+        "en": " so then，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " no，",
+      "start": 224.38,
+      "end": 224.5,
+      "speaker": 0,
+      "translation": {
+        "zh": "没有",
+        "en": " no，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " how loker we fixed yeah ah means，",
+      "start": 224.5,
+      "end": 226.96,
+      "speaker": 0,
+      "translation": {
+        "zh": "我们怎么修好的? 是啊 意思是",
+        "en": " how loker we fixed yeah ah means，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " which means ans vulnerbability should not lock us for the minutes。",
+      "start": 227.88,
+      "end": 231.24,
+      "speaker": 0,
+      "translation": {
+        "zh": "意思是,一个弱智的人 不应该把我们锁在门外",
+        "en": " which means ans vulnerbability should not lock us for the minutes。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so now is just getting the solution in that approval。",
+      "start": 231.56,
+      "end": 234.78,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以现在才刚刚得到 解决方案的 批准。",
+        "en": " so now is just getting the solution in that approval。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " and what are actituity this readning，",
+      "start": 235.26,
+      "end": 238.48,
+      "speaker": 0,
+      "translation": {
+        "zh": "这个诵读者,有甚麽罪过呢?",
+        "en": " and what are actituity this readning，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " you lite up a relisteon and genuineine。",
+      "start": 238.48,
+      "end": 240.6,
+      "speaker": 0,
+      "translation": {
+        "zh": "你们将受辱地和真实地受辱。",
+        "en": " you lite up a relisteon and genuineine。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so you should you get tting，",
+      "start": 244.74,
+      "end": 245.8,
+      "speaker": 0,
+      "translation": {
+        "zh": "以便你们尝试,",
+        "en": " so you should you get tting，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " do we see it？",
+      "start": 246.65,
+      "end": 247.37,
+      "speaker": 0,
+      "translation": {
+        "zh": "我们看到了吗?",
+        "en": " do we see it？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " recorls can not we run it。",
+      "start": 247.37,
+      "end": 249.07,
+      "speaker": 0,
+      "translation": {
+        "zh": "我们无法运行它。",
+        "en": " recorls can not we run it。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " if you run it before in december，",
+      "start": 249.47,
+      "end": 254.89,
+      "speaker": 0,
+      "translation": {
+        "zh": "如果你在12月之前运行它,",
+        "en": " if you run it before in december，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 254.89,
+      "end": 255.25,
+      "speaker": 1,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we can write in december pipeline in december。",
+      "start": 255.25,
+      "end": 259.1,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们可以在十二月的管道中写上十二月的管道。",
+        "en": " we can write in december pipeline in december。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " no，",
+      "start": 259.93,
+      "end": 260.11,
+      "speaker": 0,
+      "translation": {
+        "zh": "没有",
+        "en": " no，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " no，",
+      "start": 260.11,
+      "end": 260.33,
+      "speaker": 0,
+      "translation": {
+        "zh": "没有",
+        "en": " no，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " sorry。",
+      "start": 260.33,
+      "end": 260.71,
+      "speaker": 0,
+      "translation": {
+        "zh": "对不起。",
+        "en": " sorry。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so what what i'm saing is that we have done to fix us for the non hablogright。",
+      "start": 261.11,
+      "end": 266.15,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以,我所希望的是, 我们已经做了我们 修复我们为非博客权利人。",
+        "en": " so what what i'm saing is that we have done to fix us for the non hablogright。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so this is this is fixing after we have randicical scaling。",
+      "start": 266.15,
+      "end": 270.63,
+      "speaker": 0,
+      "translation": {
+        "zh": "这就是我们用老式缩放来修补的。",
+        "en": " so this is this is fixing after we have randicical scaling。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": "呃，",
+      "start": 271.84,
+      "end": 272.08,
+      "speaker": 1,
+      "translation": {
+        "zh": "呃，",
+        "en": "Well...",
+        "source_lang": "zh"
+      }
+    },
+    {
+      "text": " i think you，",
+      "start": 272.32,
+      "end": 273.16,
+      "speaker": 1,
+      "translation": {
+        "zh": "我认为你,",
+        "en": " i think you，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " you know，",
+      "start": 273.16,
+      "end": 273.56,
+      "speaker": 1,
+      "translation": {
+        "zh": "你知道,",
+        "en": " you know，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " the AEFY is a very old worch effort。",
+      "start": 273.68,
+      "end": 277.04,
+      "speaker": 1,
+      "translation": {
+        "zh": "AEFY是一个非常老旧的努力。",
+        "en": " the AEFY is a very old worch effort。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " the the moliability。",
+      "start": 277.04,
+      "end": 277.96,
+      "speaker": 1,
+      "translation": {
+        "zh": "和坚固的。",
+        "en": " the the moliability。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so even even even even we reruthe pipeline，",
+      "start": 278.04,
+      "end": 282.76,
+      "speaker": 1,
+      "translation": {
+        "zh": "即使我们重修管道",
+        "en": " so even even even even we reruthe pipeline，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " no，",
+      "start": 282.8,
+      "end": 283.04,
+      "speaker": 1,
+      "translation": {
+        "zh": "没有",
+        "en": " no，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " any new voliability will be uh again，",
+      "start": 283.28,
+      "end": 286.54,
+      "speaker": 1,
+      "translation": {
+        "zh": "任何新的可变性 将再次,呃,",
+        "en": " any new voliability will be uh again，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " h shnoknow。",
+      "start": 286.88,
+      "end": 287.72,
+      "speaker": 1,
+      "translation": {
+        "zh": "hnnononknow... \\fn微软雅黑hnnonknown... \\fs18\\b1\\bord1\\shad1\\3cH2F2F2F}哈诺不知道...",
+        "en": " h shnoknow。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 287.74,
+      "end": 288.29,
+      "speaker": 1,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 288.9,
+      "end": 289.3,
+      "speaker": 0,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay。",
+      "start": 289.3,
+      "end": 289.62,
+      "speaker": 0,
+      "translation": {
+        "zh": "OK,没事的。",
+        "en": " okay。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so there's no to do another rubecause。",
+      "start": 289.62,
+      "end": 291.44,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以不能再做另一件事了",
+        "en": " so there's no to do another rubecause。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " uh no one starcha EF yeah fixes that have done is good II want。",
+      "start": 291.74,
+      "end": 296.58,
+      "speaker": 0,
+      "translation": {
+        "zh": "呃,没有一个星际迷航EF ~ ~ 已经做的纠正是好的 II想要。",
+        "en": " uh no one starcha EF yeah fixes that have done is good II want。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we will have any surprises in january，",
+      "start": 296.58,
+      "end": 298.44,
+      "speaker": 0,
+      "translation": {
+        "zh": "任何惊喜都会在黄麻中出现",
+        "en": " we will have any surprises in january，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " right？",
+      "start": 298.44,
+      "end": 298.68,
+      "speaker": 0,
+      "translation": {
+        "zh": "对吧?",
+        "en": " right？",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " um yeah，",
+      "start": 300.02,
+      "end": 300.48,
+      "speaker": 1,
+      "translation": {
+        "zh": "嗯,是的,",
+        "en": " um yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " i know ok ay，",
+      "start": 300.48,
+      "end": 302.16,
+      "speaker": 1,
+      "translation": {
+        "zh": "我知道OKAY,",
+        "en": " i know ok ay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah good ah。",
+      "start": 304.02,
+      "end": 305.68,
+      "speaker": 0,
+      "translation": {
+        "zh": "是啊,好啊。",
+        "en": " yeah good ah。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " so that's one guys is yeah，",
+      "start": 305.68,
+      "end": 307.98,
+      "speaker": 0,
+      "translation": {
+        "zh": "所以只有一个家伙是耶,",
+        "en": " so that's one guys is yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " that's one for me。",
+      "start": 307.98,
+      "end": 309.48,
+      "speaker": 0,
+      "translation": {
+        "zh": "这对我来说是一个。",
+        "en": " that's one for me。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " okay，",
+      "start": 309.82,
+      "end": 310.36,
+      "speaker": 1,
+      "translation": {
+        "zh": "好吧,",
+        "en": " okay，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " if no more others。",
+      "start": 310.36,
+      "end": 311.7,
+      "speaker": 1,
+      "translation": {
+        "zh": "如果没有其他人。",
+        "en": " if no more others。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " we can close this back。",
+      "start": 311.74,
+      "end": 312.7,
+      "speaker": 1,
+      "translation": {
+        "zh": "我们可以关闭它回来。",
+        "en": " we can close this back。",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " yeah，",
+      "start": 313.62,
+      "end": 314,
+      "speaker": 1,
+      "translation": {
+        "zh": "是啊,",
+        "en": " yeah，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": " thank you，",
+      "start": 314,
+      "end": 314.36,
+      "speaker": 1,
+      "translation": {
+        "zh": "谢谢",
+        "en": " thank you，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": "拜拜，",
+      "start": 314.8,
+      "end": 315.22,
+      "speaker": 1,
+      "translation": {
+        "zh": "拜拜，",
+        "en": "Bye.",
+        "source_lang": "zh"
+      }
+    },
+    {
+      "text": " thank you，",
+      "start": 315.34,
+      "end": 315.7,
+      "speaker": 1,
+      "translation": {
+        "zh": "谢谢",
+        "en": " thank you，",
+        "source_lang": "en"
+      }
+    },
+    {
+      "text": "拜拜嗯。",
+      "start": 315.94,
+      "end": 317.22,
+      "speaker": 0,
+      "translation": {
+        "zh": "拜拜嗯。",
+        "en": "Bye-bye-bye.",
+        "source_lang": "zh"
+      }
+    }
+  ],
+  "speakers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "total_duration": 317.22,
+  "audio_hash": "9d2722e3838874b7a054ba211f1e9cfd",
+  "filename": "Recording at 2025-12-18 10.02.43.mp3",
+  "timestamp": "2025-12-30T14:34:47.553383",
+  "message": "Recognition completed successfully",
+  "audio_path": "05767d5f-0dda-4198-bc85-2309a01de1e9_audio.mp3",
+  "updated_timestamp": "2025-12-30T14:34:48.135724"
+}
