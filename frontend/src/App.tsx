@@ -64,6 +64,10 @@ function App() {
     setAppState('result')
   }
 
+  const handleResultUpdate = (updatedResult: ASRResult) => {
+    setResult(updatedResult)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <header className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-slate-700/50">
@@ -144,7 +148,7 @@ function App() {
           )}
 
           {appState === 'result' && result && (
-            <ResultViewer result={result} />
+            <ResultViewer result={result} onResultUpdate={handleResultUpdate} />
           )}
         </div>
       </main>

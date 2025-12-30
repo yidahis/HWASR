@@ -28,6 +28,11 @@ export const useAudioPlayer = () => {
       }
     }
     const handleLoadedMetadata = () => {
+      console.log('Audio loaded metadata:', {
+        duration: audio.duration,
+        readyState: audio.readyState,
+        currentTime: audio.currentTime
+      })
       setDuration(audio.duration)
       setIsReady(true)
     }
@@ -38,9 +43,23 @@ export const useAudioPlayer = () => {
       setPlaybackRange(null)
     }
     const handleSeeked = () => {
+      console.log('handleSeeked triggered, currentTime:', audio.currentTime, 'pendingPlay:', pendingPlay.current)
+      console.log('Audio state:', {
+        readyState: audio.readyState,
+        duration: audio.duration,
+        paused: audio.paused,
+        currentSrc: audio.currentSrc
+      })
       if (pendingPlay.current) {
         audio.play()
-        pendingPlay.current = null
+          .then(() => {
+            console.log('Playback started successfully')
+            pendingPlay.current = null
+          })
+          .catch(err => {
+            console.error('Failed to play after seek:', err)
+            pendingPlay.current = null
+          })
       }
     }
 
@@ -89,6 +108,7 @@ export const useAudioPlayer = () => {
       setPlaybackRange({ start, end })
       pendingPlay.current = { start, end }
       audioRef.current.currentTime = start
+      console.log('Seeking to:', start)
     }
   }
 

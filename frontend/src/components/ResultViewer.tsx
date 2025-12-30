@@ -5,29 +5,36 @@ import { Button } from './ui/button'
 import { ScrollArea } from './ui/scroll-area'
 import { SentenceItem } from './SentenceItem'
 import { useAudioPlayer } from '@/hooks/useAudioPlayer'
-import { getAudioUrl } from '@/services/api'
+import { getAudioUrl, api } from '@/services/api'
 import type { ASRResult, SentenceSegment } from '@/types/api'
 import { formatDuration } from '@/lib/utils'
 
 interface ResultViewerProps {
   result: ASRResult
+  onResultUpdate?: (updatedResult: ASRResult) => void
 }
 
-export const ResultViewer = ({ result }: ResultViewerProps) => {
+export const ResultViewer = ({ result, onResultUpdate }: ResultViewerProps) => {
   const { audioRef, isPlaying, currentTime, duration, toggle, playRange, isReady } = useAudioPlayer()
   const [activeSegmentId, setActiveSegmentId] = useState<number | null>(null)
+  const [sentences, setSentences] = useState<SentenceSegment[]>(result.sentences)
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const segmentRefs = useRef<Map<number, HTMLDivElement>>(new Map())
   const audioUrl = getAudioUrl(result.result_id)
 
+  // 当 result prop 更新时，同步更新 sentences 状态
   useEffect(() => {
-    const currentSegment = result.sentences.find(
+    setSentences(result.sentences)
+  }, [result.sentences])
+
+  useEffect(() => {
+    const currentSegment = sentences.find(
       (seg) => currentTime >= seg.start && currentTime <= seg.end
     )
     if (currentSegment) {
-      setActiveSegmentId(result.sentences.indexOf(currentSegment))
+      setActiveSegmentId(sentences.indexOf(currentSegment))
     }
-  }, [currentTime, result.sentences])
+  }, [currentTime, sentences])
 
   useEffect(() => {
     if (activeSegmentId !== null) {
@@ -65,8 +72,69 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
   }
 
   const getSpeakerCount = () => {
-    const uniqueSpeakers = [...new Set(result.sentences.map(s => s.speaker))]
+    const uniqueSpeakers = [...new Set(sentences.map(s => s.speaker))]
     return uniqueSpeakers.length
+  }
+
+  const handleMerge = async (index: number) => {
+    if (index > 0) {
+      const newSentences = [...sentences]
+      // 合并文本
+      const currentText = newSentences[index].text
+      const prevText = newSentences[index - 1].text
+      const mergedText = prevText + ' ' + currentText
+
+      // 更新上一句的文本和结束时间
+      newSentences[index - 1].text = mergedText
+      newSentences[index - 1].end = newSentences[index].end
+
+      // 删除当前句
+      newSentences.splice(index, 1)
+
+      // 更新活跃索引
+      const newActiveId = activeSegmentId !== null && activeSegmentId > index
+        ? activeSegmentId - 1
+        : activeSegmentId
+
+      setSentences(newSentences)
+      setActiveSegmentId(newActiveId)
+
+      // 保存到后端 JSON 文件
+      try {
+        const response = await api.post(`/update/${result.result_id}`, { sentences: newSentences })
+        console.log('保存合并结果成功:', response.data)
+
+        // 从后端重新加载数据确保同步
+        const reloadResponse = await api.get(`/result/${result.result_id}`)
+        if (onResultUpdate) {
+          onResultUpdate(reloadResponse.data)
+        }
+      } catch (error) {
+        console.error('保存合并结果失败:', error)
+        alert('保存失败，请重试')
+      }
+    }
+  }
+
+  const handleUpdateSentence = async (index: number, newText: string) => {
+    const newSentences = [...sentences]
+    newSentences[index].text = newText
+    setSentences(newSentences)
+
+    // 保存到后端 JSON 文件
+    try {
+      const response = await api.post(`/update/${result.result_id}`, { sentences: newSentences })
+      console.log('保存编辑结果成功:', response.data)
+
+      // 从后端重新加载数据确保同步
+      const reloadResponse = await api.get(`/result/${result.result_id}`)
+      if (onResultUpdate) {
+        onResultUpdate(reloadResponse.data)
+      }
+    } catch (error) {
+      console.error('保存编辑结果失败:', error)
+      alert('保存失败，请重试')
+    }
   }
 
   return (
@@ -92,7 +160,7 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
             <div className="p-4 glass-dark rounded-lg">
               <p className="text-sm text-slate-400 mb-1">句子数量</p>
               <p className="text-2xl font-bold text-white">
-                {result.sentences.length}
+                {sentences.length}
               </p>
             </div>
             <div className="p-4 glass-dark rounded-lg">
@@ -104,7 +172,7 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
             <div className="p-4 glass-dark rounded-lg">
               <p className="text-sm text-slate-400 mb-1">识别语言</p>
               <p className="text-2xl font-bold text-white">
-                {result.sentences[0]?.translation.source_lang?.toUpperCase() || 'AUTO'}
+                {sentences[0]?.translation?.source_lang?.toUpperCase() || 'AUTO'}
               </p>
             </div>
           </div>
@@ -124,7 +192,7 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
               </Button>
             </div>
 
-            <audio ref={audioRef} src={audioUrl} className="w-full" />
+            <audio ref={audioRef} src={audioUrl} preload="auto" className="w-full" />
 
             <div className="mt-3 flex items-center space-x-3 text-sm">
               <span className="text-slate-400">
@@ -151,7 +219,7 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
           <h3 className="text-xl font-bold text-white mb-4">转录内容</h3>
           <ScrollArea className="h-[600px] pr-2" ref={scrollAreaRef}>
             <div className="space-y-3">
-              {result.sentences.map((segment, index) => (
+              {sentences.map((segment, index) => (
                 <div
                   key={index}
                   ref={(el) => {
@@ -161,11 +229,15 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
                       segmentRefs.current.delete(index)
                     }
                   }}
+                  className="relative"
                 >
                   <SentenceItem
                     segment={segment}
                     isActive={activeSegmentId === index}
                     onClick={() => handleSegmentClick(segment)}
+                    index={index}
+                    onMerge={() => handleMerge(index)}
+                    onUpdate={(text) => handleUpdateSentence(index, text)}
                   />
                 </div>
               ))}
