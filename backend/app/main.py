@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from app.api.routes import router
+from app.api.history import router as history_router
 from app.core.config import UPLOAD_DIR, RESULTS_DIR, AUDIO_PROCESSED_DIR
 
 logging.basicConfig(
@@ -32,6 +33,7 @@ app.add_middleware(
 )
 
 app.include_router(router)
+app.include_router(history_router)
 
 
 @app.get("/")

@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { Mic, RefreshCw } from 'lucide-react'
+import { Mic, RefreshCw, Clock } from 'lucide-react'
 import { AudioUploader } from './components/AudioUploader'
 import { TaskStatusComponent } from './components/TaskStatus'
 import { ResultViewer } from './components/ResultViewer'
-import { uploadAudio, getResult, type ASRResult } from './services/api'
+import { HistoryModal } from './components/HistoryModal'
+import { uploadAudio, getResult } from './services/api'
+import type { ASRResult } from './types/api'
 
 type AppState = 'upload' | 'processing' | 'result'
 
@@ -13,6 +15,7 @@ function App() {
   const [result, setResult] = useState<ASRResult | null>(null)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
 
   const handleUpload = async (file: File) => {
     setIsUploading(true)
@@ -56,6 +59,11 @@ function App() {
     setUploadProgress(0)
   }
 
+  const handleLoadHistory = (history: ASRResult) => {
+    setResult(history)
+    setAppState('result')
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <header className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-slate-700/50">
@@ -71,15 +79,25 @@ function App() {
               </div>
             </div>
 
-            {appState !== 'upload' && (
+            <div className="flex items-center space-x-3">
               <button
-                onClick={handleReset}
+                onClick={() => setIsHistoryModalOpen(true)}
                 className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
               >
-                <RefreshCw className="w-4 h-4 text-slate-300" />
-                <span className="text-sm text-white">新建任务</span>
+                <Clock className="w-4 h-4 text-slate-300" />
+                <span className="text-sm text-white">历史记录</span>
               </button>
-            )}
+
+              {appState !== 'upload' && (
+                <button
+                  onClick={handleReset}
+                  className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+                >
+                  <RefreshCw className="w-4 h-4 text-slate-300" />
+                  <span className="text-sm text-white">新建任务</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </header>
@@ -138,6 +156,13 @@ function App() {
           </p>
         </div>
       </footer>
+
+      {/* 历史记录模态框 */}
+      <HistoryModal
+        isOpen={isHistoryModalOpen}
+        onClose={() => setIsHistoryModalOpen(false)}
+        onLoadHistory={handleLoadHistory}
+      />
     </div>
   )
 }

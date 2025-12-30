@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Play, Pause, Download, Mic } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
@@ -14,8 +14,10 @@ interface ResultViewerProps {
 }
 
 export const ResultViewer = ({ result }: ResultViewerProps) => {
-  const { audioRef, isPlaying, currentTime, duration, toggle, seek } = useAudioPlayer()
+  const { audioRef, isPlaying, currentTime, duration, toggle, playRange, isReady } = useAudioPlayer()
   const [activeSegmentId, setActiveSegmentId] = useState<number | null>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const segmentRefs = useRef<Map<number, HTMLDivElement>>(new Map())
   const audioUrl = getAudioUrl(result.result_id)
 
   useEffect(() => {
@@ -27,11 +29,28 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
     }
   }, [currentTime, result.sentences])
 
-  const handleSegmentClick = (segment: SentenceSegment) => {
-    seek(segment.start)
-    if (!isPlaying) {
-      setTimeout(() => audioRef.current?.play(), 100)
+  useEffect(() => {
+    if (activeSegmentId !== null) {
+      const element = segmentRefs.current.get(activeSegmentId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
     }
+  }, [activeSegmentId])
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.load()
+    }
+  }, [audioUrl, audioRef])
+
+  const handleSegmentClick = (segment: SentenceSegment) => {
+    console.log('Segment clicked:', segment, 'isReady:', isReady)
+    if (!isReady) {
+      console.log('Audio not ready yet, waiting...')
+      return
+    }
+    playRange(segment.start, segment.end)
   }
 
   const handleDownload = async () => {
@@ -130,15 +149,25 @@ export const ResultViewer = ({ result }: ResultViewerProps) => {
       <Card>
         <CardContent className="p-6">
           <h3 className="text-xl font-bold text-white mb-4">转录内容</h3>
-          <ScrollArea className="h-[600px] pr-2">
+          <ScrollArea className="h-[600px] pr-2" ref={scrollAreaRef}>
             <div className="space-y-3">
               {result.sentences.map((segment, index) => (
-                <SentenceItem
+                <div
                   key={index}
-                  segment={segment}
-                  isActive={activeSegmentId === index}
-                  onClick={() => handleSegmentClick(segment)}
-                />
+                  ref={(el) => {
+                    if (el) {
+                      segmentRefs.current.set(index, el)
+                    } else {
+                      segmentRefs.current.delete(index)
+                    }
+                  }}
+                >
+                  <SentenceItem
+                    segment={segment}
+                    isActive={activeSegmentId === index}
+                    onClick={() => handleSegmentClick(segment)}
+                  />
+                </div>
               ))}
             </div>
           </ScrollArea>
