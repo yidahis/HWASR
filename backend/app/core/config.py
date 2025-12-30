@@ -23,6 +23,10 @@ COMPUTE_TYPE = os.getenv("COMPUTE_TYPE", "int8")
 ENABLE_DIARIZATION = os.getenv("ENABLE_DIARIZATION", "true").lower() == "true"
 HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN", None)
 
+# 翻译服务配置
+TRANSLATION_ENABLED = os.getenv("TRANSLATION_ENABLED", "true").lower() == "true"
+DEEPL_API_KEY = os.getenv("DEEPL_API_KEY", None)
+
 # API 配置
 MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB
 ALLOWED_EXTENSIONS = ['.wav', '.mp3', '.m4a', '.flac', '.ogg', '.aac']

@@ -14,4 +14,5 @@ python-dotenv>=1.0.0
 aiofiles>=23.2.1
 pyannote.audio>=3.1.0
 matplotlib>=3.7.0
+deep-translator>=1.11.4
 

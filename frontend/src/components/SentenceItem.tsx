@@ -54,14 +54,7 @@ export const SentenceItem = ({ segment, isActive, onClick }: SentenceItemProps) 
 
       {segment.translation && (
         <div className="mt-2 p-3 bg-slate-900/50 rounded-md">
-          <p className="text-xs text-slate-500 mb-1">中文翻译:</p>
           <p className="text-sm text-slate-400">{segment.translation.zh}</p>
-          {segment.translation.source_lang === 'en' && (
-            <>
-              <p className="text-xs text-slate-500 mb-1 mt-2">英文原文:</p>
-              <p className="text-sm text-slate-400">{segment.translation.en}</p>
-            </>
-          )}
         </div>
       )}
     </div>
