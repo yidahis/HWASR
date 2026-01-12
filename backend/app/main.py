@@ -1,9 +1,27 @@
+# ---------------------------------------------------------------------------
+# 关键：必须在导入任何模块之前设置环境变量
+# ---------------------------------------------------------------------------
+import os
+
+# 设置 HuggingFace 离线模式 - 必须在任何 huggingface_hub 导入之前设置
+# 这确保断网情况下使用本地缓存，不会尝试连接 huggingface.co
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+
+# 设置 HuggingFace 缓存目录
+if not os.environ.get('HF_HOME'):
+    hf_cache = os.path.expanduser('~/.cache/huggingface')
+    os.environ['HF_HOME'] = hf_cache
+    os.environ['HUGGINGFACE_HUB_CACHE'] = os.path.join(hf_cache, 'hub')
+
+# 设置 torchaudio 使用 soundfile 后端（禁用有 bug 的 torchcodec）
+os.environ.setdefault("TORCHAUDIO_USE_CODEC_BACKEND", "0")
+
+# 现在可以安全地导入其他模块
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import logging
 import sys
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

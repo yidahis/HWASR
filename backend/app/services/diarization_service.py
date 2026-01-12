@@ -1,25 +1,33 @@
+# ---------------------------------------------------------------------------
+# 关键：必须在导入任何模块之前设置环境变量
+# ---------------------------------------------------------------------------
+import os
+
+# 设置 HuggingFace 离线模式 - 必须在任何 huggingface_hub 导入之前设置
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+
+# 设置 HuggingFace 缓存目录
+if not os.environ.get('HF_HOME'):
+    hf_cache = os.path.expanduser('~/.cache/huggingface')
+    os.environ['HF_HOME'] = hf_cache
+    os.environ['HUGGINGFACE_HUB_CACHE'] = os.path.join(hf_cache, 'hub')
+
+# 设置 torchaudio 使用 soundfile 后端
+os.environ.setdefault("TORCHAUDIO_USE_CODEC_BACKEND", "0")
+
+# 现在可以安全地导入其他模块
 import logging
 import torch
 import numpy as np
 from typing import List, Dict, Any
 import sys
-import os
 from ..core.config import HF_TOKEN
 
 logger = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# 全局 TorchAudio 配置：禁用 torchcodec backend，强制使用 legacy backend
-# ---------------------------------------------------------------------------
-# torchaudio 2.6+ 默认使用基于 torchcodec 的新后端来加载音频
-# 在 macOS 上，目前该后端存在 AudioDecoder / isString INTERNAL ASSERT FAILED 等 bug，
-# 会在 pyannote.audio 调用 torchaudio.load 时触发本次报错。
-#
-# 通过设置环境变量 TORCHAUDIO_USE_CODEC_BACKEND=0，可以关闭 torchcodec 后端，
-# 回退到稳定的 sox_io / soundfile 等传统后端。
-#
-# 必须在 import torchaudio 之前设置这个环境变量。
-os.environ.setdefault("TORCHAUDIO_USE_CODEC_BACKEND", "0")
+logger.info("已设置 HF_HUB_OFFLINE=1，强制使用本地缓存（离线模式）")
+hf_cache_dir = os.environ.get('HF_HOME', os.path.expanduser('~/.cache/huggingface'))
+logger.info(f"已设置 HuggingFace 缓存目录: {hf_cache_dir}")
 logger.info("已设置 TORCHAUDIO_USE_CODEC_BACKEND=0，禁用 torchcodec 后端")
 
 # Monkey patch for torchaudio to fix compatibility with newer versions
@@ -254,24 +262,26 @@ class DiarizationService:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             logger.info(f"使用设备: {device}")
 
+            # 检查离线模式设置
+            hf_offline = os.environ.get('HF_HUB_OFFLINE', '0')
+            logger.info(f"HF_HUB_OFFLINE: {hf_offline}")
+
             # 设置环境变量以禁用 PyTorch 2.6+ 的 weights_only 安全检查
             # pyannote.audio 模型包含旧版的 pickle 对象，不兼容 weights_only=True
             old_weights_env = os.environ.get('TORCH_DISABLE_WEIGHTS_ONLY_LOAD')
             os.environ['TORCH_DISABLE_WEIGHTS_ONLY_LOAD'] = '1'
 
-            # 设置 HuggingFace Hub 为离线模式，强制使用本地缓存
-            old_hf_offline_env = os.environ.get('HF_HUB_OFFLINE')
-            os.environ['HF_HUB_OFFLINE'] = '1'
-
             try:
                 # pyannote.audio 会自动使用 HuggingFace 缓存
-                # HF_HUB_OFFLINE=1 强制使用离线模式
+                # HF_HUB_OFFLINE=1 已在模块级别设置，确保断网时使用本地缓存
                 if HF_TOKEN:
+                    logger.info("使用 HF_TOKEN 加载模型")
                     self.pipeline = Pipeline.from_pretrained(
                         "pyannote/speaker-diarization-3.1",
                         use_auth_token=HF_TOKEN
                     )
                 else:
+                    logger.info("不使用 HF_TOKEN 加载模型")
                     self.pipeline = Pipeline.from_pretrained(
                         "pyannote/speaker-diarization-3.1"
                     )
@@ -284,11 +294,6 @@ class DiarizationService:
                     os.environ.pop('TORCH_DISABLE_WEIGHTS_ONLY_LOAD', None)
                 else:
                     os.environ['TORCH_DISABLE_WEIGHTS_ONLY_LOAD'] = old_weights_env
-
-                if old_hf_offline_env is None:
-                    os.environ.pop('HF_HUB_OFFLINE', None)
-                else:
-                    os.environ['HF_HUB_OFFLINE'] = old_hf_offline_env
 
         except ImportError as e:
             logger.error(f"pyannote.audio 导入失败: {e}")
