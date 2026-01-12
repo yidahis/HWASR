@@ -2,7 +2,11 @@ import logging
 import os
 import json
 import asyncio
-from typing import Optional, Any
+import zipfile
+import io
+import aiohttp
+import uuid
+from typing import Any
 from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks, Request
 from fastapi.responses import FileResponse, Response
 from ..models.schemas import ASRResult, TaskStatus
@@ -59,10 +63,30 @@ async def process_audio_task(
         await task_manager.update_task(
             task_id, progress=50.0, message="正在进行语音识别..."
         )
-        
-        # 执行 Whisper 识别
-        asr_result = whisper_service.transcribe(converted_path)
-        
+
+        logger.info(f"Starting transcription for task {task_id}")
+
+        # 获取当前事件循环
+        loop = asyncio.get_running_loop()
+        logger.info(f"Got event loop: {loop}")
+
+        # 执行 Whisper 识别，传递进度回调
+        def progress_callback(progress: float):
+            try:
+                logger.info(f"Progress callback called: {progress}%")
+                asyncio.run_coroutine_threadsafe(
+                    task_manager.update_task(
+                        task_id, progress=progress, message=f"正在进行语音识别... ({int(progress)}%)"
+                    ),
+                    loop
+                )
+            except Exception as e:
+                logger.error(f"Failed to update progress: {e}", exc_info=True)
+
+        asr_result = whisper_service.transcribe(converted_path, progress_callback=progress_callback)
+
+        logger.info(f"Transcription completed for task {task_id}")
+
         await task_manager.update_task(
             task_id, progress=70.0, message="正在进行说话人识别..."
         )
@@ -312,16 +336,35 @@ def parse_range_header(range_header: str, file_size: int):
 
 @router.get("/download/{result_id}")
 async def download_result(result_id: str):
-    """下载识别结果 JSON 文件"""
+    """下载识别结果 JSON 和音频文件的 ZIP 压缩包"""
     result_file = os.path.join(RESULTS_DIR, f"{result_id}.json")
+    audio_file = os.path.join(RESULTS_DIR, f"{result_id}_audio.wav")
 
     if not os.path.exists(result_file):
-        raise HTTPException(status_code=404, detail="结果不存在")
+        raise HTTPException(status_code=404, detail="结果文件不存在")
 
-    return FileResponse(
-        result_file,
-        media_type="application/json",
-        filename=f"{result_id}.json"
+    if not os.path.exists(audio_file):
+        raise HTTPException(status_code=404, detail="音频文件不存在")
+
+    # 创建内存中的 ZIP 文件
+    zip_buffer = io.BytesIO()
+
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        # 添加 JSON 文件
+        with open(result_file, 'rb') as f:
+            zip_file.writestr(f"{result_id}.json", f.read())
+        # 添加音频文件
+        with open(audio_file, 'rb') as f:
+            zip_file.writestr(f"{result_id}_audio.wav", f.read())
+
+    zip_buffer.seek(0)
+
+    return Response(
+        content=zip_buffer.getvalue(),
+        media_type="application/zip",
+        headers={
+            'Content-Disposition': f'attachment; filename="{result_id}_result.zip"'
+        }
     )
 
 
@@ -375,3 +418,157 @@ async def update_result(result_id: str, update_data: dict[str, Any]):
     except Exception as e:
         logger.error(f"更新结果失败: {e}")
         raise HTTPException(status_code=500, detail=f"更新结果失败: {str(e)}")
+
+
+@router.post("/import")
+async def import_result(
+    json_file: UploadFile = File(..., description="JSON 结果文件"),
+    audio_file: UploadFile = File(..., description="对应的音频文件")
+):
+    """导入 JSON 结果和音频文件"""
+    # 生成新的 result_id
+    result_id = generate_result_id()
+
+    try:
+        # 读取并验证 JSON 文件
+        json_content = await json_file.read()
+        result_data = json.loads(json_content)
+
+        # 验证 JSON 结构
+        required_fields = ["sentences", "speakers", "total_duration"]
+        for field in required_fields:
+            if field not in result_data:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"JSON 文件缺少必需字段: {field}"
+                )
+
+        # 保存 JSON 文件
+        json_file_path = os.path.join(RESULTS_DIR, f"{result_id}.json")
+        # 更新 result_id
+        result_data["result_id"] = result_id
+        # 更新时间戳
+        result_data["timestamp"] = get_current_timestamp()
+        result_data["updated_timestamp"] = get_current_timestamp()
+
+        with open(json_file_path, 'w', encoding='utf-8') as f:
+            json.dump(result_data, f, ensure_ascii=False, indent=2)
+
+        # 保存音频文件
+        if audio_file.filename:
+            _ = os.path.splitext(audio_file.filename)[1].lower()
+
+        audio_filename = f"{result_id}_audio.wav"
+
+        # 读取音频文件内容
+        audio_content = await audio_file.read()
+        audio_file_path = os.path.join(RESULTS_DIR, audio_filename)
+
+        # 保存音频文件
+        with open(audio_file_path, 'wb') as f:
+            f.write(audio_content)
+
+        logger.info(f"成功导入结果 {result_id}")
+
+        return {
+            "success": True,
+            "message": "导入成功",
+            "result_id": result_id
+        }
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="JSON 文件格式错误")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"导入失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"导入失败: {str(e)}")
+
+
+@router.post("/download-url", response_model=TaskStatus)
+async def download_audio_from_url(
+    background_tasks: BackgroundTasks,
+    url: str = None
+):
+    """从 URL 下载音频文件并启动识别任务"""
+    
+    if not url:
+        raise HTTPException(status_code=400, detail="请提供音频 URL")
+    
+    # 生成文件名
+    original_filename = f"downloaded_{uuid.uuid4().hex[:8]}"
+    
+    try:
+        # 下载音频文件
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=300)) as response:
+                if response.status != 200:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"下载失败，HTTP 状态码: {response.status}"
+                    )
+                
+                # 检查内容类型
+                content_type = response.headers.get('Content-Type', '')
+                if not any(ct in content_type for ct in ['audio', 'octet-stream']):
+                    logger.warning(f"内容类型可能不是音频: {content_type}")
+                
+                # 读取文件内容
+                content = await response.read()
+                
+                # 验证文件大小
+                if len(content) > MAX_FILE_SIZE:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f"文件过大。最大支持 {MAX_FILE_SIZE // (1024*1024)}MB"
+                    )
+                
+                # 根据内容类型确定扩展名
+                file_ext = '.mp3'  # 默认使用 mp3
+                if 'wav' in content_type:
+                    file_ext = '.wav'
+                elif 'm4a' in content_type:
+                    file_ext = '.m4a'
+                elif 'ogg' in content_type:
+                    file_ext = '.ogg'
+                
+                original_filename = original_filename + file_ext
+                
+                # 保存下载的文件
+                file_path = os.path.join(UPLOAD_DIR, original_filename)
+                ensure_directory(UPLOAD_DIR)
+                
+                with open(file_path, 'wb') as f:
+                    f.write(content)
+        
+        # 生成任务ID
+        task_id = generate_result_id()
+        
+        # 创建任务
+        await task_manager.create_task(task_id)
+        
+        # 启动后台处理
+        background_tasks.add_task(
+            process_audio_task,
+            task_id,
+            original_filename,
+            file_path
+        )
+        
+        logger.info(f"从 {url} 下载音频成功，任务ID: {task_id}")
+        
+        return TaskStatus(
+            task_id=task_id,
+            status="pending",
+            progress=0.0,
+            message="音频下载成功，开始处理"
+        )
+        
+    except aiohttp.ClientError as e:
+        logger.error(f"下载音频失败: {e}")
+        raise HTTPException(status_code=400, detail=f"下载音频失败: {str(e)}")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"处理 URL 失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"处理 URL 失败: {str(e)}")

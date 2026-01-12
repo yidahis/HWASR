@@ -1,6 +1,6 @@
 from faster_whisper import WhisperModel
 import logging
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional, Callable
 from ..core.config import WHISPER_MODEL_NAME, WHISPER_DEVICE, COMPUTE_TYPE
 
 logger = logging.getLogger(__name__)
@@ -12,7 +12,8 @@ class WhisperService:
         self.model = WhisperModel(
             WHISPER_MODEL_NAME,
             device=WHISPER_DEVICE,
-            compute_type=COMPUTE_TYPE
+            compute_type=COMPUTE_TYPE,
+            local_files_only=True
         )
         logger.info("Whisper 模型加载完成")
     
@@ -62,10 +63,15 @@ class WhisperService:
         
         return ' '.join(processed_sentences)
     
-    def transcribe(self, audio_path: str, language: str = None) -> Dict[str, Any]:
+    def transcribe(self, audio_path: str, language: str = None, progress_callback: Optional[Callable[[float], None]] = None) -> Dict[str, Any]:
         """
         执行语音识别
         返回格式化后的结果
+        
+        Args:
+            audio_path: 音频文件路径
+            language: 语言代码（可选）
+            progress_callback: 进度回调函数，接受进度百分比（0-100）
         """
         try:
             # 使用优化的参数改善识别结果
@@ -89,7 +95,11 @@ class WhisperService:
             }
             
             full_text = []
+            segment_count = 0
+            total_duration = info.duration
+            
             for segment in segments:
+                segment_count += 1
                 segment_data = {
                     "text": segment.text.strip(),
                     "start": segment.start,
@@ -108,6 +118,11 @@ class WhisperService:
                 
                 result["segments"].append(segment_data)
                 full_text.append(segment.text.strip())
+                
+                # 调用进度回调，基于当前识别进度
+                if progress_callback and total_duration > 0:
+                    progress = 50.0 + (segment.end / total_duration) * 15.0  # 50% -> 65%
+                    progress_callback(min(progress, 65.0))
             
             result["text"] = " ".join(full_text)
             

@@ -88,7 +88,7 @@ def start_backend():
         "--host",
         "0.0.0.0",
         "--port",
-        "8002",
+        "8003",
         "--reload"
     ]
 
@@ -109,8 +109,8 @@ def start_backend():
 
     if process.poll() is None:
         print(f"  ✓ 后端服务已启动 (PID: {process.pid})")
-        print("  - 后端地址: http://localhost:8002")
-        print("  - API文档: http://localhost:8002/docs")
+        print("  - 后端地址: http://localhost:8003")
+        print("  - API文档: http://localhost:8003/docs")
         return process
     else:
         print(f"  ✗ 后端服务启动失败,请查看日志: {BACKEND_LOG}")
@@ -226,8 +226,8 @@ def main():
     print()
     print("服务访问地址:")
     print("  • 前端应用: http://localhost:5173")
-    print("  • 后端API: http://localhost:8002")
-    print("  • API文档: http://localhost:8002/docs")
+    print("  • 后端API: http://localhost:8003")
+    print("  • API文档: http://localhost:8003/docs")
     print()
     print("日志文件:")
     print(f"  • 后端日志: {BACKEND_LOG}")

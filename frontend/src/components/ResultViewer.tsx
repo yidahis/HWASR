@@ -61,12 +61,12 @@ export const ResultViewer = ({ result, onResultUpdate }: ResultViewerProps) => {
   }
 
   const handleDownload = async () => {
-    const response = await fetch(`/api/download/${result.result_id}`)
+    const response = await fetch(`http://localhost:8003/api/download/${result.result_id}`)
     const blob = await response.blob()
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `${result.result_id}.json`
+    a.download = `${result.result_id}_result.zip`
     a.click()
     URL.revokeObjectURL(url)
   }
@@ -145,7 +145,7 @@ export const ResultViewer = ({ result, onResultUpdate }: ResultViewerProps) => {
             <CardTitle className="text-2xl">识别结果</CardTitle>
             <Button onClick={handleDownload} variant="outline">
               <Download className="w-4 h-4 mr-2" />
-              导出 JSON
+              导出 JSON+音频
             </Button>
           </div>
         </CardHeader>

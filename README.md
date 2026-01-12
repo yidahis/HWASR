@@ -141,7 +141,7 @@ source venv/bin/activate  # macOS/Linux
 # 或 venv\Scripts\activate  # Windows
 
 # 启动服务
-uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload
+uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload
 ```
 
 **启动前端**（新终端）:
@@ -153,8 +153,8 @@ npm run dev
 ### 访问应用
 
 - **前端应用**: http://localhost:5173
-- **后端 API**: http://localhost:8002
-- **API 文档**: http://localhost:8002/docs
+- **后端 API**: http://localhost:8003
+- **API 文档**: http://localhost:8003/docs
 
 ## 使用说明
 
@@ -247,7 +247,7 @@ Body:
 }
 ```
 
-更多 API 详情请访问 http://localhost:8002/docs
+更多 API 详情请访问 http://localhost:8003/docs
 
 ## 配置说明
 
@@ -266,7 +266,7 @@ MAX_FILE_SIZE=100
 
 ### 前端配置
 
-前端通过环境变量配置 API 地址，默认为 `http://localhost:8002`
+前端通过环境变量配置 API 地址，默认为 `http://localhost:8003`
 
 ## 开发说明
 

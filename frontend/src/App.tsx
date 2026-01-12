@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import { Mic, RefreshCw, Clock } from 'lucide-react'
+import { Mic, RefreshCw, Clock, Upload, Link } from 'lucide-react'
 import { AudioUploader } from './components/AudioUploader'
 import { TaskStatusComponent } from './components/TaskStatus'
 import { ResultViewer } from './components/ResultViewer'
 import { HistoryModal } from './components/HistoryModal'
-import { uploadAudio, getResult } from './services/api'
+import { ImportData } from './components/ImportData'
+import { uploadAudio, getResult, downloadAudioFromUrl } from './services/api'
 import type { ASRResult } from './types/api'
 
 type AppState = 'upload' | 'processing' | 'result'
+type UploadMethod = 'file' | 'url'
 
 function App() {
   const [appState, setAppState] = useState<AppState>('upload')
@@ -16,6 +18,10 @@ function App() {
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
   const [isHistoryModalOpen, setIsHistoryModalOpen] = useState(false)
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false)
+  const [uploadMethod, setUploadMethod] = useState<UploadMethod>('file')
+  const [audioUrl, setAudioUrl] = useState('')
+  const [isDownloading, setIsDownloading] = useState(false)
 
   const handleUpload = async (file: File) => {
     setIsUploading(true)
@@ -32,6 +38,27 @@ function App() {
       alert('上传失败，请重试')
     } finally {
       setIsUploading(false)
+    }
+  }
+
+  const handleDownloadFromUrl = async () => {
+    if (!audioUrl.trim()) {
+      alert('请输入音频链接')
+      return
+    }
+
+    setIsDownloading(true)
+
+    try {
+      const response = await downloadAudioFromUrl(audioUrl.trim())
+      setTaskId(response.task_id)
+      setAppState('processing')
+      setAudioUrl('')
+    } catch (error: any) {
+      console.error('Download failed:', error)
+      alert(error.message || '下载失败，请重试')
+    } finally {
+      setIsDownloading(false)
     }
   }
 
@@ -68,6 +95,18 @@ function App() {
     setResult(updatedResult)
   }
 
+  const handleImportSuccess = async (resultId: string) => {
+    try {
+      const resultData = await getResult(resultId)
+      setResult(resultData)
+      setAppState('result')
+      setIsImportModalOpen(false)
+    } catch (error) {
+      console.error('Failed to get imported result:', error)
+      alert('获取导入结果失败，请重试')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       <header className="fixed top-0 left-0 right-0 z-50 glass-dark border-b border-slate-700/50">
@@ -90,6 +129,14 @@ function App() {
               >
                 <Clock className="w-4 h-4 text-slate-300" />
                 <span className="text-sm text-white">历史记录</span>
+              </button>
+
+              <button
+                onClick={() => setIsImportModalOpen(true)}
+                className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+              >
+                <Upload className="w-4 h-4 text-slate-300" />
+                <span className="text-sm text-white">导入</span>
               </button>
 
               {appState !== 'upload' && (
@@ -120,11 +167,74 @@ function App() {
                 </p>
               </div>
 
-              <AudioUploader
-                onUpload={handleUpload}
-                isUploading={isUploading}
-                uploadProgress={uploadProgress}
-              />
+              {/* 上传方式切换 */}
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setUploadMethod('file')}
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
+                    uploadMethod === 'file'
+                      ? 'bg-gradient-to-r from-primary to-accent text-white'
+                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                  }`}
+                >
+                  <Upload className="w-5 h-5" />
+                  <span>文件上传</span>
+                </button>
+                <button
+                  onClick={() => setUploadMethod('url')}
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
+                    uploadMethod === 'url'
+                      ? 'bg-gradient-to-r from-primary to-accent text-white'
+                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
+                  }`}
+                >
+                  <Link className="w-5 h-5" />
+                  <span>链接下载</span>
+                </button>
+              </div>
+
+              {/* 文件上传方式 */}
+              {uploadMethod === 'file' && (
+                <AudioUploader
+                  onUpload={handleUpload}
+                  isUploading={isUploading}
+                  uploadProgress={uploadProgress}
+                />
+              )}
+
+              {/* 链接下载方式 */}
+              {uploadMethod === 'url' && (
+                <div className="max-w-2xl mx-auto">
+                  <div className="glass-dark rounded-xl p-8 border border-slate-700/50">
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-slate-300 mb-2">
+                          音频链接
+                        </label>
+                        <input
+                          type="url"
+                          value={audioUrl}
+                          onChange={(e) => setAudioUrl(e.target.value)}
+                          placeholder="请输入音频文件的 URL 链接"
+                          className="w-full px-4 py-3 bg-white/5 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50"
+                          disabled={isDownloading}
+                        />
+                      </div>
+                      <button
+                        onClick={handleDownloadFromUrl}
+                        disabled={isDownloading || !audioUrl.trim()}
+                        className={`w-full py-3 rounded-lg font-medium transition-all ${
+                          isDownloading || !audioUrl.trim()
+                            ? 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-primary to-accent text-white hover:opacity-90'
+                        }`}
+                      >
+                        {isDownloading ? '下载中...' : '下载并识别'}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -167,6 +277,14 @@ function App() {
         onClose={() => setIsHistoryModalOpen(false)}
         onLoadHistory={handleLoadHistory}
       />
+
+      {/* 导入数据模态框 */}
+      {isImportModalOpen && (
+        <ImportData
+          onImportSuccess={handleImportSuccess}
+          onCancel={() => setIsImportModalOpen(false)}
+        />
+      )}
     </div>
   )
 }

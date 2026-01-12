@@ -3,8 +3,8 @@ uvicorn[standard]==0.24.0
 python-multipart==0.0.6
 pydub==0.25.1
 faster-whisper>=1.0.0
-torch>=2.4.0,<2.6.0
-torchaudio>=2.4.0,<2.6.0
+torch>=2.6.0
+torchaudio>=2.6.0
 numpy>=1.24.3
 pandas>=2.0.3
 scipy>=1.11.0
@@ -14,5 +14,7 @@ python-dotenv>=1.0.0
 aiofiles>=23.2.1
 pyannote.audio>=3.1.0
 matplotlib>=3.7.0
-deep-translator>=1.11.4
+transformers>=4.35.0
+sentencepiece>=0.1.99
+accelerate>=0.24.0
 

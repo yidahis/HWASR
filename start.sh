@@ -62,15 +62,15 @@ echo ""
 echo "[1/2] 启动后端服务 (FastAPI + uvicorn)..."
 cd "$BACKEND_DIR"
 source venv/bin/activate
-nohup python -m uvicorn app.main:app --host 0.0.0.0 --port 8002 --reload > "$BACKEND_LOG" 2>&1 &
+nohup python -m uvicorn app.main:app --host 0.0.0.0 --port 8003 --reload > "$BACKEND_LOG" 2>&1 &
 BACKEND_PID=$!
 sleep 2
 
 # 检查后端是否启动成功
 if ps -p $BACKEND_PID > /dev/null; then
     echo "  ✓ 后端服务已启动 (PID: $BACKEND_PID)"
-    echo "  - 后端地址: http://localhost:8002"
-    echo "  - API文档: http://localhost:8002/docs"
+    echo "  - 后端地址: http://localhost:8003"
+    echo "  - API文档: http://localhost:8003/docs"
 else
     echo "  ✗ 后端服务启动失败,请查看日志: $BACKEND_LOG"
     exit 1
@@ -101,8 +101,8 @@ echo "=========================================="
 echo ""
 echo "服务访问地址:"
 echo "  • 前端应用: http://localhost:5173"
-echo "  • 后端API: http://localhost:8002"
-echo "  • API文档: http://localhost:8002/docs"
+echo "  • 后端API: http://localhost:8003"
+echo "  • API文档: http://localhost:8003/docs"
 echo ""
 echo "日志文件:"
 echo "  • 后端日志: $BACKEND_LOG"
