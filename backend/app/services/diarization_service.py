@@ -259,7 +259,11 @@ class DiarizationService:
             from pyannote.audio import Pipeline
             logger.info("正在加载 pyannote.audio 说话人识别模型...")
 
-            device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            device = torch.device(
+                "cuda" if torch.cuda.is_available() else
+                "mps" if torch.backends.mps.is_available() else
+                "cpu"
+            )
             logger.info(f"使用设备: {device}")
 
             # 检查离线模式设置
