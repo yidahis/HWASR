@@ -61,6 +61,10 @@ async def process_audio_task(
         # 转换音频格式
         processed_filename = f"{os.path.splitext(original_filename)[0]}_processed.wav"
         processed_file_path = os.path.join(AUDIO_PROCESSED_DIR, processed_filename)
+
+        # 确保 processed 目录存在
+        ensure_directory(AUDIO_PROCESSED_DIR)
+
         converted_path, duration = await convert_to_wav(uploaded_file_path, processed_file_path)
         
         await task_manager.update_task(
@@ -155,6 +159,10 @@ async def process_audio_task(
         # 保存结果到文件
         result_filename = f"{result_id}.json"
         result_file_path = os.path.join(RESULTS_DIR, result_filename)
+
+        # 确保 results 目录存在
+        ensure_directory(RESULTS_DIR)
+
         await asyncio.to_thread(json.dump, result_data, open(result_file_path, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
 
         # 复制处理后的音频文件到 results 目录
@@ -390,24 +398,46 @@ async def update_result(result_id: str, update_data: dict[str, Any]):
 
         # 更新句子列表
         if "sentences" in update_data:
-            # 重新翻译被修改的句子
             updated_sentences = update_data["sentences"]
             original_sentences = result_data["sentences"]
 
+            # 检查是否为合并操作（句子数量减少）
+            is_merge_operation = len(updated_sentences) < len(original_sentences)
+
+            # 标记已处理的原句子索引（用于合并场景）
+            processed_original_indices = set()
+
             for i, new_sentence in enumerate(updated_sentences):
-                # 找到对应的原句子
-                if i < len(original_sentences):
-                    old_sentence = original_sentences[i]
-                    # 检查文本是否被修改
-                    if new_sentence["text"] != old_sentence["text"]:
-                        # 重新翻译
-                        translation = translation_service.translate_segment(
-                            new_sentence["text"],
-                            source_lang=new_sentence.get("translation", {}).get("source_lang", "auto")
-                        )
-                        new_sentence["translation"] = translation
-                    elif "translation" in old_sentence:
-                        # 保留原有翻译
+                text_changed = False
+                matching_original_idx = None
+
+                # 尝试找到匹配的原句子（通过文本精确匹配）
+                for j, old_sentence in enumerate(original_sentences):
+                    if j in processed_original_indices:
+                        continue
+
+                    if new_sentence["text"] == old_sentence["text"]:
+                        # 找到精确匹配的原句子
+                        matching_original_idx = j
+                        text_changed = False
+                        processed_original_indices.add(j)
+                        break
+
+                if matching_original_idx is None:
+                    # 未找到精确匹配，说明是新的合并分句，需要翻译
+                    text_changed = True
+
+                if text_changed:
+                    # 新分句或文本被修改，需要重新翻译
+                    translation = translation_service.translate_segment(
+                        new_sentence["text"],
+                        source_lang="auto"
+                    )
+                    new_sentence["translation"] = translation
+                elif matching_original_idx is not None:
+                    # 保留原有翻译
+                    old_sentence = original_sentences[matching_original_idx]
+                    if "translation" in old_sentence:
                         new_sentence["translation"] = old_sentence["translation"]
 
             result_data["sentences"] = updated_sentences

@@ -19,7 +19,10 @@ async def convert_to_wav(input_path: str, output_path: str) -> Tuple[str, float]
         
         # 重采样到 16kHz
         audio = audio.set_frame_rate(16000)
-        
+
+        # 确保输出目录存在
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
         # 导出为 WAV
         audio.export(output_path, format="wav")
         
