@@ -25,6 +25,7 @@ export interface ASRResult {
   message: string
   audio_path: string
   updated_timestamp?: string
+  processing_time?: number  // 处理耗时（秒）
 }
 
 export interface TaskStatus {

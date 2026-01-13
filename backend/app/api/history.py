@@ -39,7 +39,8 @@ async def get_history_list():
                         'timestamp': data.get('timestamp', ''),
                         'total_duration': data.get('total_duration', 0),
                         'speaker_count': speaker_count,
-                        'text_preview': text_preview
+                        'text_preview': text_preview,
+                        'processing_time': data.get('processing_time')  # 添加处理时间
                     })
                 except Exception as e:
                     logger.warning(f"读取文件 {filename} 失败: {e}")

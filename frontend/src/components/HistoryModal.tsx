@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Clock, Mic, Users, X, Loader2 } from 'lucide-react'
+import { Clock, Mic, Users, X, Loader2, Zap } from 'lucide-react'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { ScrollArea } from './ui/scroll-area'
@@ -63,6 +63,16 @@ export const HistoryModal = ({ isOpen, onClose, onLoadHistory }: HistoryModalPro
     } catch {
       return timestamp
     }
+  }
+
+  const formatProcessingTime = (seconds?: number) => {
+    if (!seconds) return '-'
+    if (seconds < 60) {
+      return `${seconds.toFixed(1)}秒`
+    }
+    const minutes = Math.floor(seconds / 60)
+    const secs = (seconds % 60).toFixed(1)
+    return `${minutes}分${secs}秒`
   }
 
   if (!isOpen) return null
@@ -145,6 +155,12 @@ export const HistoryModal = ({ isOpen, onClose, onLoadHistory }: HistoryModalPro
                               <span className="w-2 h-2 bg-slate-600 rounded-full" />
                               <span>{formatDuration(item.total_duration)}</span>
                             </div>
+                            {item.processing_time && (
+                              <div className="flex items-center space-x-1">
+                                <Zap className="w-3 h-3 text-yellow-400" />
+                                <span>{formatProcessingTime(item.processing_time)}</span>
+                              </div>
+                            )}
                           </div>
 
                           {/* 文本预览 */}

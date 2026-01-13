@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Play, Pause, Download, Mic } from 'lucide-react'
+import { Play, Pause, Download, Mic, Zap } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { ScrollArea } from './ui/scroll-area'
@@ -76,6 +76,16 @@ export const ResultViewer = ({ result, onResultUpdate }: ResultViewerProps) => {
     return uniqueSpeakers.length
   }
 
+  const formatProcessingTime = (seconds?: number) => {
+    if (!seconds) return '-'
+    if (seconds < 60) {
+      return `${seconds.toFixed(1)}秒`
+    }
+    const minutes = Math.floor(seconds / 60)
+    const secs = (seconds % 60).toFixed(1)
+    return `${minutes}分${secs}秒`
+  }
+
   const handleMerge = async (index: number) => {
     if (index > 0) {
       const newSentences = [...sentences]
@@ -142,7 +152,20 @@ export const ResultViewer = ({ result, onResultUpdate }: ResultViewerProps) => {
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl">识别结果</CardTitle>
+            <div className="flex items-center space-x-3">
+              <CardTitle className="text-2xl">识别结果</CardTitle>
+              {result.processing_time && (
+                <div className="flex items-center space-x-1.5 text-sm text-slate-400" style={{ fontSize: '14px' }}>
+                  <Zap className="w-4 h-4 text-yellow-400" />
+                  <span>{formatProcessingTime(result.processing_time)}</span>
+                  {result.total_duration > 0 && result.processing_time > 0 && (
+                    <span className="text-primary font-medium">
+                      ({(result.total_duration / result.processing_time).toFixed(2)}x)
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
             <Button onClick={handleDownload} variant="outline">
               <Download className="w-4 h-4 mr-2" />
               导出 JSON+音频

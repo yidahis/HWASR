@@ -41,8 +41,11 @@ async def process_audio_task(
 ):
     """后台处理音频识别任务"""
     global whisper_service
-    
+    import time
+
     try:
+        start_time = time.time()  # 记录开始时间
+
         await task_manager.update_task(
             task_id, status="processing", progress=10.0, message="正在初始化..."
         )
@@ -144,7 +147,11 @@ async def process_audio_task(
                 })
             }
             result_data["sentences"].append(sentence)
-        
+
+        # 计算处理时间（在保存之前）
+        processing_time = time.time() - start_time
+        result_data["processing_time"] = round(processing_time, 2)
+
         # 保存结果到文件
         result_filename = f"{result_id}.json"
         result_file_path = os.path.join(RESULTS_DIR, result_filename)
@@ -153,16 +160,16 @@ async def process_audio_task(
         # 复制处理后的音频文件到 results 目录
         audio_output_path = os.path.join(RESULTS_DIR, f"{result_id}_audio.wav")
         await asyncio.to_thread(os.rename, converted_path, audio_output_path)
-        
+
         await task_manager.update_task(
             task_id,
             status="completed",
             progress=100.0,
-            message="识别完成",
+            message=f"识别完成 (耗时 {processing_time:.2f}秒)",
             result_id=result_id
         )
-        
-        logger.info(f"任务 {task_id} 处理完成，结果ID: {result_id}")
+
+        logger.info(f"任务 {task_id} 处理完成，结果ID: {result_id}，耗时 {processing_time:.2f}秒")
         
     except Exception as e:
         logger.error(f"任务 {task_id} 处理失败: {e}", exc_info=True)
