@@ -167,32 +167,6 @@ function App() {
                 </p>
               </div>
 
-              {/* 上传方式切换 */}
-              <div className="flex justify-center gap-4">
-                <button
-                  onClick={() => setUploadMethod('file')}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
-                    uploadMethod === 'file'
-                      ? 'bg-gradient-to-r from-primary to-accent text-white'
-                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
-                  }`}
-                >
-                  <Upload className="w-5 h-5" />
-                  <span>文件上传</span>
-                </button>
-                <button
-                  onClick={() => setUploadMethod('url')}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-lg transition-all ${
-                    uploadMethod === 'url'
-                      ? 'bg-gradient-to-r from-primary to-accent text-white'
-                      : 'bg-white/10 text-slate-300 hover:bg-white/20'
-                  }`}
-                >
-                  <Link className="w-5 h-5" />
-                  <span>链接下载</span>
-                </button>
-              </div>
-
               {/* 文件上传方式 */}
               {uploadMethod === 'file' && (
                 <AudioUploader
