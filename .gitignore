@@ -71,7 +71,7 @@ test_report.json
 
 # Model cache
 .cache/
-models/
+
 
 # SSL certificates
 ssl/
