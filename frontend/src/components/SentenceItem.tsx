@@ -1,7 +1,7 @@
 import { CheckCircle, Merge, Edit, Save } from 'lucide-react'
 import { cn, formatTimestamp } from '@/lib/utils'
 import type { SentenceSegment } from '@/types/api'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface SentenceItemProps {
   segment: SentenceSegment
@@ -15,6 +15,11 @@ interface SentenceItemProps {
 export const SentenceItem = ({ segment, isActive, onClick, onMerge, onUpdate, index }: SentenceItemProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editedText, setEditedText] = useState(segment.text)
+
+  // 当 segment.text 改变时，同步更新 editedText
+  useEffect(() => {
+    setEditedText(segment.text)
+  }, [segment.text])
 
   const handleEdit = () => {
     setIsEditing(true)
