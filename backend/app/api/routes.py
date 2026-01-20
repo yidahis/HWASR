@@ -20,7 +20,7 @@ from ..utils.helpers import (
     ensure_directory,
     calculate_audio_hash
 )
-from ..utils.audio_processor import convert_to_wav
+from ..utils.audio_processor import convert_to_wav, trim_audio
 from ..core.config import (
     UPLOAD_DIR, RESULTS_DIR, AUDIO_PROCESSED_DIR,
     ENABLE_DIARIZATION, ALLOWED_EXTENSIONS, MAX_FILE_SIZE
@@ -65,7 +65,13 @@ async def process_audio_task(
         # 确保 processed 目录存在
         ensure_directory(AUDIO_PROCESSED_DIR)
 
-        converted_path, duration = await convert_to_wav(uploaded_file_path, processed_file_path)
+        # 先剪切前3秒
+        trimmed_filename = f"{os.path.splitext(original_filename)[0]}_trimmed.wav"
+        trimmed_file_path = os.path.join(AUDIO_PROCESSED_DIR, trimmed_filename)
+        await asyncio.to_thread(trim_audio, uploaded_file_path, trimmed_file_path, start_time=3)
+
+        # 再转换为 WAV 格式
+        converted_path, duration = await convert_to_wav(trimmed_file_path, processed_file_path)
         
         await task_manager.update_task(
             task_id, progress=50.0, message="正在进行语音识别..."
